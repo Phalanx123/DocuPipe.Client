@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
-using DocuPipe.Client.Document.Models;
+using DocuPipe.Clients.Document.Models;
 
-namespace DocuPipe.Client.Document;
+namespace DocuPipe.Clients.Document;
 
 public sealed class DocumentClient(HttpClient httpClient) : IDocumentClient
 {

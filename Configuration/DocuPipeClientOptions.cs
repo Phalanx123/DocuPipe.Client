@@ -1,4 +1,4 @@
-namespace DocuPipe.Client.Configuration;
+namespace DocuPipe.Configuration;
 
 /// <summary>
 /// Configuration options for DocuPipe API communication.

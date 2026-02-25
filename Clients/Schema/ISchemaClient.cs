@@ -1,3 +1,3 @@
-namespace DocuPipe.Client.Schema;
+namespace DocuPipe.Clients.Schema;
 
 public interface ISchemaClient;

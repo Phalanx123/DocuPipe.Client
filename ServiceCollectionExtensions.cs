@@ -1,12 +1,12 @@
-using DocuPipe.Client.Configuration;
-using DocuPipe.Client.Document;
-using DocuPipe.Client.Schema;
-using DocuPipe.Client.Standardization;
+using DocuPipe.Clients.Document;
+using DocuPipe.Clients.Schema;
+using DocuPipe.Clients.Standardization;
+using DocuPipe.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace DocuPipe.Client;
+namespace DocuPipe;
 
 public static class ServiceCollectionExtensions
 {

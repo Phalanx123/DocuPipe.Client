@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
-using DocuPipe.Client.Standardization.Models;
+using DocuPipe.Clients.Standardization.Models;
 
-namespace DocuPipe.Client.Standardization;
+namespace DocuPipe.Clients.Standardization;
 
 public sealed class StandardizationClient(HttpClient httpClient) : IStandardizationClient
 {

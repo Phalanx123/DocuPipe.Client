@@ -1,6 +1,6 @@
-using DocuPipe.Client.Document.Models;
+using DocuPipe.Clients.Document.Models;
 
-namespace DocuPipe.Client.Document;
+namespace DocuPipe.Clients.Document;
 
 public interface IDocumentClient
 {

@@ -1,6 +1,6 @@
-using DocuPipe.Client.Standardization.Models;
+using DocuPipe.Clients.Standardization.Models;
 
-namespace DocuPipe.Client.Standardization;
+namespace DocuPipe.Clients.Standardization;
 
 public interface IStandardizationClient
 {

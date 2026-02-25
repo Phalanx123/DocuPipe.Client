@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DocuPipe.Client.Document.Models;
+namespace DocuPipe.Clients.Document.Models;
 
 /// <summary>
 /// Request payload for /document.
