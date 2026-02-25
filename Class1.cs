@@ -1,5 +1,4 @@
-﻿namespace DocuPipe;
+namespace DocuPipe.Client;
 
-public class Class1
-{
-}
+// Intentionally left as a compatibility shim for initial package scaffolding.
+internal static class PackageMarker;
