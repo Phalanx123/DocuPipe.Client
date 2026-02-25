@@ -1,4 +1,4 @@
-namespace DocuPipe.Client.Api.Schema;
+namespace DocuPipe.Client.Schema;
 
 /// <summary>
 /// Placeholder for schema-specific endpoints.

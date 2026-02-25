@@ -1,7 +1,7 @@
-using DocuPipe.Client.Api.Document;
-using DocuPipe.Client.Api.Schema;
-using DocuPipe.Client.Api.Standardization;
 using DocuPipe.Client.Configuration;
+using DocuPipe.Client.Document;
+using DocuPipe.Client.Schema;
+using DocuPipe.Client.Standardization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -56,7 +56,7 @@ public static class ServiceCollectionExtensions
         {
             return;
         }
-        
+
         var headerName = string.IsNullOrWhiteSpace(options.ApiKeyHeaderName) ? "x-api-key" : options.ApiKeyHeaderName;
         httpClient.DefaultRequestHeaders.Remove(headerName);
         httpClient.DefaultRequestHeaders.Add(headerName, options.ApiKey);

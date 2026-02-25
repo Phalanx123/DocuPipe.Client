@@ -18,11 +18,26 @@
 services.AddDocuPipeClient(configuration);
 ```
 
-## Example call
+## Submit a document
+
+```csharp
+using DocuPipe.Client.Document.Models;
+
+var submitRequest = new SubmitDocumentRequest
+{
+    Filename = "BinderPart-16.pdf",
+    Url = "https://example.com/BinderPart-16.pdf"
+};
+
+var document = await documentClient.SubmitDocumentAsync(submitRequest, cancellationToken);
+var documentId = document.DocumentId;
+```
+
+## Standardization example
 
 ```csharp
 using System.Text.Json;
-using DocuPipe.Client.Api.Standardization.Models;
+using DocuPipe.Client.Standardization.Models;
 
 var request = new StandardizeBatchRequest
 {

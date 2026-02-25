@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DocuPipe.Client.Api.Standardization.Models;
+namespace DocuPipe.Client.Standardization.Models;
 
 /// <summary>
 /// Request payload for /v2/standardize/batch.
