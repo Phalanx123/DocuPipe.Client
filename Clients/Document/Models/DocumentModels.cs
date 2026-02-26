@@ -10,14 +10,22 @@ public sealed class SubmitDocumentRequest
 {
     [JsonPropertyName("dataset")] public string? Dataset { get; set; }
 
-    [JsonPropertyName("parseVersion")] public ParseVersionEnum? ParseVersion { get; set; }
+    [JsonPropertyName("parseVersion")] public ParseVersionEnum? ParseVersion { get; set; } = ParseVersionEnum.Version3;
 
     [JsonPropertyName("workflowId")] public string? WorkflowId { get; set; }
 
     [JsonPropertyName("metadata")] public JsonElement? Metadata { get; set; }
     
+    [JsonPropertyName("document")]
+    public required Document Document { get; init; }
+[JsonPropertyName("filename")]
+    public string? Filename { get; set; }
+}
+
+public sealed class Document
+{
     [JsonPropertyName("file")]
-    public DocuPipeFile? File { get; set; }
+    public required DocuPipeFile File { get; init; }
 }
 
 public sealed class DocuPipeFile

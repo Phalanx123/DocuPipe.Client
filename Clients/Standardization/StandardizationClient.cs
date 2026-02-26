@@ -5,7 +5,7 @@ namespace DocuPipe.Clients.Standardization;
 
 public sealed class StandardizationClient(HttpClient httpClient) : IStandardizationClient
 {
-    public async Task<StandardizeBatchResponse> CreateBatchAsync(StandardizeBatchRequest request, CancellationToken cancellationToken = default)
+    public async Task<StandardizeBatchResponse?> CreateBatchAsync(StandardizeBatchRequest request, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
 
@@ -13,7 +13,7 @@ public sealed class StandardizationClient(HttpClient httpClient) : IStandardizat
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<StandardizeBatchResponse>(cancellationToken).ConfigureAwait(false);
-        return payload ?? new StandardizeBatchResponse();
+        return payload ?? null;
     }
 
     public async Task<StandardizationDetailsResponse<TData>> GetStandardizationAsync<TData>(string standardizationId, CancellationToken cancellationToken = default)
@@ -24,6 +24,6 @@ public sealed class StandardizationClient(HttpClient httpClient) : IStandardizat
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<StandardizationDetailsResponse<TData>>(cancellationToken).ConfigureAwait(false);
-        return payload ?? new StandardizationDetailsResponse<TData>();
+        return payload ?? throw new Exception($"Failed to retrieve standardization details for ID: {standardizationId}");
     }
 }

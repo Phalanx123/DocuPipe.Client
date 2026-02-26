@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using DocuPipe.Converters;
 
 namespace DocuPipe.Clients.Document.Models;
 
@@ -51,7 +52,7 @@ public record ProcessedDocumentResponse
     /// Number of pages in the document.
     /// </summary>
     [JsonPropertyName("numPages")]
-    public int NumPages { get; set; }
+    public int? NumPages { get; set; }
 
     /// <summary>
     /// Detected document language.
@@ -69,6 +70,7 @@ public record ProcessedDocumentResponse
     /// Processing status of the document.
     /// </summary>
     [JsonPropertyName("status")]
+    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<DocumentProcessingStatusEnum>))]
     public required DocumentProcessingStatusEnum Status { get; set; }
 
     /// <summary>

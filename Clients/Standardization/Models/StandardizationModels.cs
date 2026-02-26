@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using DocuPipe.Converters;
 
 namespace DocuPipe.Clients.Standardization.Models;
 
@@ -8,14 +9,27 @@ namespace DocuPipe.Clients.Standardization.Models;
 /// </summary>
 public sealed class StandardizeBatchRequest
 {
-    [JsonPropertyName("documentIds")] public required List<string> DocumentIds { get; set; }
+    [JsonPropertyName("documentIds")] 
+    public required List<string> DocumentIds { get; set; }
 
-    [JsonPropertyName("schemaId")] public string? SchemaId { get; set; }
+    [JsonPropertyName("schemaId")] 
+    public string? SchemaId { get; set; }
 
-    [JsonPropertyName("guidelines")] public List<string>? Guidelines { get; set; }
-    [JsonPropertyName("displayMode")] public DisplayModeEnum? DisplayMode { get; set; }
+    [JsonPropertyName("guidelines")] 
+    public List<string>? Guidelines { get; set; }
 
-    [JsonPropertyName("effortLevel")] public EffortLevelEnum? EffortLevel { get; set; }
+    [JsonPropertyName("displayMode")]
+    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<DisplayModeEnum>))]
+    public DisplayModeEnum DisplayMode { get; set; } = DisplayModeEnum.Auto;
+
+    [JsonPropertyName("effortLevel")] 
+    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<EffortLevelEnum>))]
+    public EffortLevelEnum EffortLevel { get; set; } = EffortLevelEnum.Standard;
+    [JsonPropertyName("useMetadata")]
+    public bool UseMetadata { get; set; } = false;
+
+    [JsonPropertyName("stdVersion")]
+    public decimal StdVersion { get; set; } = 2.3m;
 }
 
 public enum DisplayModeEnum
@@ -58,31 +72,23 @@ public sealed class StandardizeDocumentRequest
 /// </summary>
 public sealed class StandardizeBatchResponse
 {
-    [JsonPropertyName("batchId")] public string? BatchId { get; set; }
+    [JsonPropertyName("jobId")] 
+    public required string JobId { get; init; }
 
-    [JsonPropertyName("status")] public string? Status { get; set; }
-
-    [JsonPropertyName("standardizations")]
-    public List<StandardizeBatchItemResponse> Standardizations { get; set; } = [];
-
-    [JsonExtensionData] public Dictionary<string, JsonElement> AdditionalData { get; set; } = new();
-}
-
-/// <summary>
-/// Item response for each document submitted in the standardization batch.
-/// </summary>
-public sealed class StandardizeBatchItemResponse
-{
-    [JsonPropertyName("standardizationId")]
-    public string? StandardizationId { get; set; }
-
-    [JsonPropertyName("documentId")] public string? DocumentId { get; set; }
-
-    [JsonPropertyName("status")] public string? Status { get; set; }
-
-    [JsonPropertyName("error")] public string? Error { get; set; }
-
-    [JsonExtensionData] public Dictionary<string, JsonElement> AdditionalData { get; set; } = new();
+    [JsonPropertyName("status")] 
+    public required string Status { get; init; }
+    
+    [JsonPropertyName("timestamp")]
+    public required DateTimeOffset Timestamp { get; init; }
+    
+    [JsonPropertyName("documentCount")]
+    public required int DocumentCount { get; init; }
+    
+    [JsonPropertyName("pageCount")] 
+    public int PageCount { get; init; }
+    
+   
+    
 }
 
 /// <summary>
@@ -92,27 +98,25 @@ public sealed class StandardizeBatchItemResponse
 public sealed class StandardizationDetailsResponse<TData>
 {
     [JsonPropertyName("standardizationId")]
-    public string StandardizationId { get; set; } = string.Empty;
+    public required string StandardizationId { get; init; }
 
-    [JsonPropertyName("documentId")] public string DocumentId { get; set; } = string.Empty;
+    [JsonPropertyName("documentId")] public required string DocumentId { get; init; }
 
-    [JsonPropertyName("data")] public TData? Data { get; set; }
+    [JsonPropertyName("data")] public required TData Data { get; init; }
 
-    [JsonPropertyName("schemaId")] public string? SchemaId { get; set; }
+    [JsonPropertyName("schemaId")] public string? SchemaId { get; init; }
 
-    [JsonPropertyName("schemaName")] public string? SchemaName { get; set; }
+    [JsonPropertyName("schemaName")] public string? SchemaName { get; init; }
 
-    [JsonPropertyName("jobId")] public string? JobId { get; set; }
+    [JsonPropertyName("jobId")] public string? JobId { get; init; }
 
-    [JsonPropertyName("dataset")] public string? Dataset { get; set; }
+    [JsonPropertyName("dataset")] public string? Dataset { get; init; }
 
-    [JsonPropertyName("filename")] public string? Filename { get; set; }
+    [JsonPropertyName("filename")] public string? Filename { get; init; }
 
-    [JsonPropertyName("displayMode")] public string? DisplayMode { get; set; }
+    [JsonPropertyName("displayMode")] public string? DisplayMode { get; init; }
 
-    [JsonPropertyName("timestamp")] public DateTimeOffset Timestamp { get; set; }
+    [JsonPropertyName("timestamp")] public DateTimeOffset Timestamp { get; init; }
 
-    [JsonPropertyName("metadata")] public JsonElement? Metadata { get; set; }
-
-    [JsonExtensionData] public Dictionary<string, JsonElement> AdditionalData { get; set; } = new();
+    [JsonPropertyName("metadata")] public JsonElement? Metadata { get; init; }
 }

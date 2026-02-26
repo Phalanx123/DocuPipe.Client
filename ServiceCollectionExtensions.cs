@@ -1,4 +1,5 @@
 using DocuPipe.Clients.Document;
+using DocuPipe.Clients.Job;
 using DocuPipe.Clients.Schema;
 using DocuPipe.Clients.Standardization;
 using DocuPipe.Configuration;
@@ -32,6 +33,13 @@ public static class ServiceCollectionExtensions
             RegisterClients(services);
             return services;
         }
+
+        public IServiceCollection AddDocuPipeClient()
+        {
+            RegisterClients(services);
+            return services;
+        }
+
     }
 
     private static void RegisterClients(IServiceCollection services)
@@ -41,6 +49,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IDocumentClient, DocumentClient>(ApplyOptions);
 
         services.AddHttpClient<ISchemaClient, SchemaClient>(ApplyOptions);
+        
+        services.AddHttpClient<IJobClient, JobClient>(ApplyOptions);
     }
 
     private static void ApplyOptions(IServiceProvider serviceProvider, HttpClient httpClient)
