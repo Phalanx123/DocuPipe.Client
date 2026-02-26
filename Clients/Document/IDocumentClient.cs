@@ -4,5 +4,6 @@ namespace DocuPipe.Clients.Document;
 
 public interface IDocumentClient
 {
-    Task<SubmitDocumentResponse> SubmitDocumentAsync(SubmitDocumentRequest request, CancellationToken cancellationToken = default);
+    Task<SubmitDocumentResponse?> SubmitDocumentAsync(SubmitDocumentRequest request, CancellationToken cancellationToken = default);
+    Task<ProcessedDocumentResponse?> RetrieveProcessedDocumentAsync(string documentId, CancellationToken ct);
 }
