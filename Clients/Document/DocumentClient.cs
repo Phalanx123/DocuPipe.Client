@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using DocuPipe.Clients.Document.Models;
+using DocuPipe.Extensions;
 
 namespace DocuPipe.Clients.Document;
 
@@ -9,7 +10,9 @@ public sealed class DocumentClient(HttpClient httpClient) : IDocumentClient
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        using var response = await httpClient.PostAsJsonAsync("/document", request, cancellationToken).ConfigureAwait(false);
+        using var response = await httpClient
+            .PostAsDocuPipeJsonAsync("/document", request, cancellationToken)
+            .ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<SubmitDocumentResponse>(cancellationToken).ConfigureAwait(false);

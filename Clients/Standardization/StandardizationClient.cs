@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using DocuPipe.Clients.Standardization.Models;
+using DocuPipe.Extensions;
 
 namespace DocuPipe.Clients.Standardization;
 
@@ -9,7 +10,9 @@ public sealed class StandardizationClient(HttpClient httpClient) : IStandardizat
     {
         ArgumentNullException.ThrowIfNull(request);
 
-        using var response = await httpClient.PostAsJsonAsync("/v2/standardize/batch", request, cancellationToken).ConfigureAwait(false);
+        using var response = await httpClient
+            .PostAsDocuPipeJsonAsync("/v2/standardize/batch", request, cancellationToken)
+            .ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
 
         var payload = await response.Content.ReadFromJsonAsync<StandardizeBatchResponse>(cancellationToken).ConfigureAwait(false);
