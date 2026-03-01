@@ -25,6 +25,12 @@ public sealed class StandardizeBatchRequest
     [JsonPropertyName("effortLevel")] 
     [JsonConverter(typeof(LowercaseStringEnumJsonConverter<EffortLevelEnum>))]
     public EffortLevelEnum EffortLevel { get; set; } = EffortLevelEnum.Standard;
+    
+    [JsonPropertyName("splitMode")]
+    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<SplitModeEnum>))]
+    public SplitModeEnum SplitMode { get; set; } = SplitModeEnum.Auto;
+    
+    
     [JsonPropertyName("useMetadata")]
     public bool UseMetadata { get; set; } = false;
 
@@ -45,6 +51,13 @@ public enum EffortLevelEnum
     Standard,
     High,
     Extended
+}
+
+public enum SplitModeEnum
+{
+    Auto,
+    All,
+    Never
 }
 
 /// <summary>
