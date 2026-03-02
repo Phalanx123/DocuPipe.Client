@@ -17,18 +17,20 @@ public sealed class SubmitDocumentRequest
     [JsonPropertyName("metadata")] public JsonElement? Metadata { get; set; }
     
     [JsonPropertyName("document")]
-    public required Document Document { get; init; }
-[JsonPropertyName("filename")]
+    public required DocumentWrapper Document { get; init; }
+
+}
+
+public sealed class DocumentWrapper
+{
+    [JsonPropertyName("file")]
+    public required FileWrapper  File { get; init; }
+    
+    [JsonPropertyName("filename")]
     public string? Filename { get; set; }
 }
 
-public sealed class Document
-{
-    [JsonPropertyName("file")]
-    public required DocuPipeFile File { get; init; }
-}
-
-public sealed class DocuPipeFile
+public sealed class FileWrapper 
 {
     [JsonPropertyName("contents")] 
     public required string Contents { get; set; }
