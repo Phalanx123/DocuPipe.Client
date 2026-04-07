@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text.Json;
 using DocuPipe.Serialization;
 
 namespace DocuPipe.Extensions;
@@ -11,6 +12,7 @@ internal static class HttpClientJsonExtensions
         TValue value,
         CancellationToken cancellationToken = default)
     {
-        return httpClient.PostAsJsonAsync(requestUri, value, DocuPipeJsonSerializerOptions.Default, cancellationToken);
+        var json = JsonSerializer.SerializeToDocument(value, value!.GetType(), DocuPipeJsonSerializerOptions.Default);
+        return httpClient.PostAsJsonAsync(requestUri, json, DocuPipeJsonSerializerOptions.Default, cancellationToken);
     }
 }

@@ -7,24 +7,21 @@ namespace DocuPipe.Clients.Standardization.Models;
 /// <summary>
 /// Request payload for /v2/standardize/batch.
 /// </summary>
-public sealed class StandardizeBatchRequest
+public sealed class StandardizeBatchRequestBaseV2 : StandardizeBatchRequestBase
 {
     [JsonPropertyName("documentIds")] 
     public required List<string> DocumentIds { get; set; }
+    
 
-    [JsonPropertyName("schemaId")] 
-    public string? SchemaId { get; set; }
-
-    [JsonPropertyName("guidelines")] 
-    public List<string>? Guidelines { get; set; }
+ 
 
     [JsonPropertyName("displayMode")]
     [JsonConverter(typeof(LowercaseStringEnumJsonConverter<DisplayModeEnum>))]
     public DisplayModeEnum DisplayMode { get; set; } = DisplayModeEnum.Auto;
 
     [JsonPropertyName("effortLevel")] 
-    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<EffortLevelEnum>))]
-    public EffortLevelEnum EffortLevel { get; set; } = EffortLevelEnum.Standard;
+    [JsonConverter(typeof(LowercaseStringEnumJsonConverter<EffortLevelEnumV2>))]
+    public EffortLevelEnumV2 EffortLevel { get; set; } = EffortLevelEnumV2.Standard;
     
     [JsonPropertyName("splitMode")]
     [JsonConverter(typeof(LowercaseStringEnumJsonConverter<SplitModeEnum>))]
@@ -36,6 +33,12 @@ public sealed class StandardizeBatchRequest
 
     [JsonPropertyName("stdVersion")]
     public decimal StdVersion { get; set; } = 2.3m;
+    
+    [JsonPropertyName("schemaId")] 
+    public string? SchemaId { get; set; }
+    
+    [JsonPropertyName("guidelines")] 
+    public string? Guidelines { get; set; }
 }
 
 public enum DisplayModeEnum
@@ -46,7 +49,7 @@ public enum DisplayModeEnum
     Image
 }
 
-public enum EffortLevelEnum
+public enum EffortLevelEnumV2
 {
     Standard,
     High,
@@ -83,25 +86,22 @@ public sealed class StandardizeDocumentRequest
 /// <summary>
 /// Response payload for /v2/standardize/batch.
 /// </summary>
-public sealed class StandardizeBatchResponse
+public sealed class StandardizeResponseV2 : StandardizeResponseBase
 {
-    [JsonPropertyName("jobId")] 
-    public required string JobId { get; init; }
-
-    [JsonPropertyName("status")] 
-    public required string Status { get; init; }
-    
     [JsonPropertyName("timestamp")]
     public required DateTimeOffset Timestamp { get; init; }
-    
+
     [JsonPropertyName("documentCount")]
     public required int DocumentCount { get; init; }
-    
-    [JsonPropertyName("pageCount")] 
-    public int PageCount { get; init; }
-    
-   
-    
+
+    [JsonPropertyName("standardizationJobIds")]
+    public string[]? StandardizationJobIds { get; init; }
+
+    [JsonPropertyName("standardizationIds")]
+    public string[]? StandardizationIds { get; init; }
+
+    [JsonPropertyName("details")]
+    public string? Details { get; init; }
 }
 
 /// <summary>

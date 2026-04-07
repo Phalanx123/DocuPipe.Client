@@ -44,13 +44,15 @@ public static class ServiceCollectionExtensions
 
     private static void RegisterClients(IServiceCollection services)
     {
-        services.AddHttpClient<IStandardizationClient, StandardizationClient>(ApplyOptions);
-
+        services.AddHttpClient("DocuPipe", ApplyOptions);
+        
         services.AddHttpClient<IDocumentClient, DocumentClient>(ApplyOptions);
 
         services.AddHttpClient<ISchemaClient, SchemaClient>(ApplyOptions);
         
         services.AddHttpClient<IJobClient, JobClient>(ApplyOptions);
+        
+        services.AddSingleton<IStandardizationClientFactory, StandardizationClientFactory>();
     }
 
     private static void ApplyOptions(IServiceProvider serviceProvider, HttpClient httpClient)
