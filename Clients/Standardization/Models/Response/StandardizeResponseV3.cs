@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using DocuPipe.Clients.Standardization.Models.Response;
 
 namespace DocuPipe.Clients.Standardization.Models;
 

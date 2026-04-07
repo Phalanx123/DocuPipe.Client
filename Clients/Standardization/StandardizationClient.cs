@@ -1,6 +1,8 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using DocuPipe.Clients.Standardization.Models;
+using DocuPipe.Clients.Standardization.Models.Request;
+using DocuPipe.Clients.Standardization.Models.Response;
 using DocuPipe.Extensions;
 using DocuPipe.Serialization;
 
@@ -23,7 +25,7 @@ public sealed class StandardizationClient(HttpClient httpClient, DocuPipeApiVers
         _ => throw new ArgumentOutOfRangeException(nameof(apiVersion))
     };
 
-    public async Task<StandardizeResponseBase?> CreateBatchAsync(StandardizeBatchRequestBase request,
+    public async Task<StandardizeResponseBase?> CreateBatchAsync(StandardizeRequestBase request,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);

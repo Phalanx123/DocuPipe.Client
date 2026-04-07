@@ -1,9 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using DocuPipe.Converters;
 
-namespace DocuPipe.Clients.Standardization.Models;
+namespace DocuPipe.Clients.Standardization.Models.Request;
 
-public abstract class StandardizeBatchRequestBase
+public abstract class StandardizeRequestBase
 { 
     
     [JsonPropertyName("guidelines")] 

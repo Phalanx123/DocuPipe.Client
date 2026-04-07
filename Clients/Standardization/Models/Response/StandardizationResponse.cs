@@ -1,0 +1,64 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace DocuPipe.Clients.Standardization.Models;
+
+
+
+
+
+
+
+
+
+/// <summary>
+/// A document entry to standardize in the batch request.
+/// </summary>
+public sealed class StandardizeDocumentRequest
+{
+    [JsonPropertyName("documentId")] public string? DocumentId { get; set; }
+
+    [JsonPropertyName("filename")] public string? Filename { get; set; }
+
+    [JsonPropertyName("text")] public string? Text { get; set; }
+
+    [JsonPropertyName("url")] public string? Url { get; set; }
+
+    [JsonPropertyName("base64")] public string? Base64 { get; set; }
+
+    [JsonPropertyName("metadata")] public JsonElement? Metadata { get; set; }
+
+    [JsonExtensionData] public Dictionary<string, JsonElement> AdditionalData { get; set; } = new();
+}
+
+
+
+/// <summary>
+/// Response payload for /standardization/{standardization_id}.
+/// </summary>
+/// <typeparam name="TData">Type used to deserialize the standardization data object.</typeparam>
+public sealed class StandardizationDetailsResponse<TData>
+{
+    [JsonPropertyName("standardizationId")]
+    public required string StandardizationId { get; init; }
+
+    [JsonPropertyName("documentId")] public required string DocumentId { get; init; }
+
+    [JsonPropertyName("data")] public required TData Data { get; init; }
+
+    [JsonPropertyName("schemaId")] public string? SchemaId { get; init; }
+
+    [JsonPropertyName("schemaName")] public string? SchemaName { get; init; }
+
+    [JsonPropertyName("jobId")] public string? JobId { get; init; }
+
+    [JsonPropertyName("dataset")] public string? Dataset { get; init; }
+
+    [JsonPropertyName("filename")] public string? Filename { get; init; }
+
+    [JsonPropertyName("displayMode")] public string? DisplayMode { get; init; }
+
+    [JsonPropertyName("timestamp")] public DateTimeOffset Timestamp { get; init; }
+
+    [JsonPropertyName("metadata")] public JsonElement? Metadata { get; init; }
+}

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace DocuPipe.Clients.Standardization.Models;
+namespace DocuPipe.Clients.Standardization.Models.Response;
 
 public class StandardizeResponseBase
 {
