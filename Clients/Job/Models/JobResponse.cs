@@ -29,4 +29,43 @@ public class JobResponse
     [JsonPropertyName("documentCount")] public int? DocumentCount { get; init; }
 
     [JsonPropertyName("pageCount")] public int? PageCount { get; init; }
+
+    /// <summary>
+    /// Typed results for a workflow-run job (see POST /v2/workflow/{workflow_id}/run). Absent for
+    /// other job types, which report results via <see cref="DocumentIds"/>/<see cref="StandardizationIds"/> instead.
+    /// </summary>
+    [JsonPropertyName("outputs")] public List<JobOutput>? Outputs { get; init; }
+}
+
+public class JobOutput
+{
+    [JsonPropertyName("outputType")] public string? OutputType { get; init; }
+
+    [JsonPropertyName("extraction")] public JobExtractionOutput? Extraction { get; init; }
+
+    [JsonPropertyName("redaction")] public JobRedactionOutput? Redaction { get; init; }
+}
+
+public class JobExtractionOutput
+{
+    [JsonPropertyName("items")] public List<JobExtractionItem>? Items { get; init; }
+}
+
+public class JobExtractionItem
+{
+    [JsonPropertyName("documentId")] public string? DocumentId { get; init; }
+
+    [JsonPropertyName("standardizationId")] public string? StandardizationId { get; init; }
+}
+
+public class JobRedactionOutput
+{
+    [JsonPropertyName("items")] public List<JobRedactionItem>? Items { get; init; }
+}
+
+public class JobRedactionItem
+{
+    [JsonPropertyName("redactionId")] public string? RedactionId { get; init; }
+
+    [JsonPropertyName("downloadUrl")] public string? DownloadUrl { get; init; }
 }

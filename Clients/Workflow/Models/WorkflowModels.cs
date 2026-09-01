@@ -76,9 +76,9 @@ public sealed class WorkflowSummary
     [JsonPropertyName("workflowId")]
     public required string WorkflowId { get; set; }
 
-    [JsonPropertyName("name")]
+    [JsonPropertyName("workflowName")]
     public string? Name { get; set; }
 
-    [JsonPropertyName("description")]
-    public string? Description { get; set; }
+    [JsonPropertyName("timestamp")]
+    public string? Timestamp { get; set; }
 }

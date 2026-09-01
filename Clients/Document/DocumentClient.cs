@@ -13,7 +13,7 @@ public sealed class DocumentClient(HttpClient httpClient) : IDocumentClient
         using var response = await httpClient
             .PostAsDocuPipeJsonAsync("/document", request, cancellationToken)
             .ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
+        await response.EnsureSuccessWithBodyAsync(cancellationToken).ConfigureAwait(false);
 
         var payload = await response.Content.ReadFromJsonAsync<SubmitDocumentResponse>(cancellationToken).ConfigureAwait(false);
         return payload ?? null;
@@ -23,7 +23,7 @@ public sealed class DocumentClient(HttpClient httpClient) : IDocumentClient
     {
         ArgumentNullException.ThrowIfNull(documentId);
         using var response = await httpClient.GetAsync($"/document/{documentId}", ct).ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
+        await response.EnsureSuccessWithBodyAsync(ct).ConfigureAwait(false);
 
         var payload = await response.Content.ReadFromJsonAsync<ProcessedDocumentResponse>(ct).ConfigureAwait(false);
         return payload ?? null;

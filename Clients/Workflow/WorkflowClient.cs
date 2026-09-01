@@ -15,7 +15,7 @@ public sealed class WorkflowClient(HttpClient httpClient) : IWorkflowClient
         using var response = await httpClient
             .PostAsDocuPipeJsonAsync($"/v2/workflow/{Uri.EscapeDataString(workflowId)}/run", request, cancellationToken)
             .ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
+        await response.EnsureSuccessWithBodyAsync(cancellationToken).ConfigureAwait(false);
 
         var payload = await response.Content.ReadFromJsonAsync<RunWorkflowResponse>(cancellationToken).ConfigureAwait(false);
         return payload ?? null;
@@ -24,7 +24,7 @@ public sealed class WorkflowClient(HttpClient httpClient) : IWorkflowClient
     public async Task<List<WorkflowSummary>> ListWorkflowsAsync(CancellationToken cancellationToken = default)
     {
         using var response = await httpClient.GetAsync("/workflows", cancellationToken).ConfigureAwait(false);
-        response.EnsureSuccessStatusCode();
+        await response.EnsureSuccessWithBodyAsync(cancellationToken).ConfigureAwait(false);
 
         var payload = await response.Content.ReadFromJsonAsync<List<WorkflowSummary>>(cancellationToken).ConfigureAwait(false);
         return payload ?? [];
