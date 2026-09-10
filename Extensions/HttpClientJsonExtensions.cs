@@ -30,6 +30,8 @@ internal static class HttpClientJsonExtensions
 
         var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         throw new HttpRequestException(
-            $"DocuPipe request to {response.RequestMessage?.RequestUri} failed with {(int)response.StatusCode} {response.StatusCode}: {body}");
+            $"DocuPipe request to {response.RequestMessage?.RequestUri} failed with {(int)response.StatusCode} {response.StatusCode}: {body}",
+            inner: null,
+            statusCode: response.StatusCode);
     }
 }
