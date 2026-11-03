@@ -1,3 +1,4 @@
+using DocuPipe.Clients.Account;
 using DocuPipe.Clients.Document;
 using DocuPipe.Clients.Job;
 using DocuPipe.Clients.Schema;
@@ -54,6 +55,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<IJobClient, JobClient>(ApplyOptions);
 
         services.AddHttpClient<IWorkflowClient, WorkflowClient>(ApplyOptions);
+
+        services.AddHttpClient<IAccountClient, AccountClient>(ApplyOptions);
 
         services.AddSingleton<IStandardizationClientFactory, StandardizationClientFactory>();
     }
