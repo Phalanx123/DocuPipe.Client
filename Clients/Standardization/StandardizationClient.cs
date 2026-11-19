@@ -62,4 +62,17 @@ public sealed class StandardizationClient(HttpClient httpClient, DocuPipeApiVers
                    .ConfigureAwait(false)
                ?? throw new InvalidOperationException($"Failed to deserialize standardization details for ID: {standardizationId}");
     }
+
+    public async Task<string> ListForDocumentRawAsync(string documentId, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(documentId);
+
+        using var response = await httpClient
+            .GetAsync($"/standardizations?document_id={Uri.EscapeDataString(documentId)}&exclude_payload=false&limit=100",
+                cancellationToken)
+            .ConfigureAwait(false);
+        await response.EnsureSuccessWithBodyAsync(cancellationToken).ConfigureAwait(false);
+
+        return await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+    }
 }
